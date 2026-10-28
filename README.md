@@ -1,2 +1,2 @@
 # ohtu-s26-palautukset
-TKT20006
+https://github.com/Petuuu/ohtuvarasto26

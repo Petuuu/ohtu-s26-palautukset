@@ -1,11 +1,11 @@
 import unittest
 from player import Player
-from statistics_service import StatisticsService
+from statistics_service import StatisticsService, SortBy
 
 SAMPLE = [
     Player("player a", "ABC", 2, 5),
-    Player("player b", "ABC", 7, 2),
-    Player("player c", "DEF", 2, 10),
+    Player("player b", "ABC", 7, 3),
+    Player("player c", "DEF", 3, 10),
     Player("player d", "GHI", 10, 2),
 ]
 
@@ -36,4 +36,13 @@ class TestStatisticsService(unittest.TestCase):
         self.assertEqual(self.stats.team("JKL"), [])
 
     def test_top(self):
-        self.assertEqual(self.stats.top(2), [SAMPLE[2], SAMPLE[3], SAMPLE[1]])
+        def players(list, indices):
+            ans = []
+            for idx in indices:
+                ans.append(list[idx])
+            return ans
+
+        self.assertEqual(self.stats.top(2, SortBy.POINTS), players(SAMPLE, [2, 3, 1]))
+        self.assertEqual(self.stats.top(2), players(SAMPLE, [2, 3, 1]))
+        self.assertEqual(self.stats.top(2, SortBy.GOALS), players(SAMPLE, [3, 1, 2]))
+        self.assertEqual(self.stats.top(2, SortBy.ASSISTS), players(SAMPLE, [2, 0, 1]))

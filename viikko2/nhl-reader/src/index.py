@@ -26,13 +26,7 @@ def create_table(season, nat, players):
     return table
 
 
-def main():
-    console = Console()
-    season = Prompt.ask("Season [#27F5EB](YYYY-YY)")
-    url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
-    reader = PlayerReader(url, console)
-    stats = PlayerStats(reader)
-
+def handle_io(console, season, stats):
     while True:
         nat = Prompt.ask("Nationality [#27F5EB](set empty or 'q' to exit)")
         if not nat or nat == "q":
@@ -41,6 +35,14 @@ def main():
         players = stats.top_scorers_by_nationality(nat)
         table = create_table(season, nat, players)
         console.print(table)
+
+
+def main():
+    console = Console()
+    season = Prompt.ask("Season [#27F5EB](YYYY-YY)")
+    url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
+    stats = PlayerStats(PlayerReader(url, console))
+    handle_io(Console(), season, stats)
 
 
 if __name__ == "__main__":

@@ -5,11 +5,11 @@ from player import Player
 
 class PlayerReader:
     def __init__(self, url, console):
-        self._url = url
+        self.url = url
         self.console = console
 
     def get_players(self):
-        res = requests.get(self._url).json()
+        res = requests.get(self.url, timeout=10).json()
         if isinstance(res, dict) and res.get("error"):
             self.console.print(f"[red]Error: {res["error"]}")
             sys.exit()

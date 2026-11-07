@@ -5,8 +5,8 @@ from player_reader import PlayerReader
 from player_stats import PlayerStats
 
 
-def create_table(season, nat, players):
-    table = Table(title=f"Season {season} players from {nat}")
+def create_table(season, description, players):
+    table = Table(title=f"Season {season} players from {description}")
 
     table.add_column("name")
     table.add_column("teams")
@@ -26,15 +26,30 @@ def create_table(season, nat, players):
     return table
 
 
+def search_players(stats, search_by, value):
+    if search_by == "nationality":
+        return stats.top_scorers_by_nationality(value)
+    return stats.top_scorers_by_team(value)
+
+
+def show_search_results(console, season, stats, search_by):
+    value = Prompt.ask(f"{search_by.capitalize()}")
+    players = search_players(stats, search_by, value)
+    table = create_table(season, value, players)
+    console.print(table)
+
+
 def handle_io(console, season, stats):
     while True:
-        nat = Prompt.ask("Nationality [#27F5EB](set empty or 'q' to exit)")
-        if not nat or nat == "q":
+        search_by = Prompt.ask("Search by [#27F5EB](nationality/team, or 'q' to exit)")
+        if not search_by or search_by == "q":
             break
 
-        players = stats.top_scorers_by_nationality(nat)
-        table = create_table(season, nat, players)
-        console.print(table)
+        if search_by not in ("nationality", "team"):
+            console.print("[red]Choose either 'nationality' or 'team'.")
+            continue
+
+        show_search_results(console, season, stats, search_by)
 
 
 def main():

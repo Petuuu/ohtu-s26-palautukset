@@ -1,2 +1,3 @@
 # ohtu-s26-palautukset
-https://github.com/Petuuu/ohtuvarasto26
+- [ohtuvarasto](https://github.com/Petuuu/ohtuvarasto26)
+- [webcounter](https://github.com/Petuuu/webcounter)

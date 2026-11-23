@@ -1,3 +1,3 @@
 Agentti refaktoroi koodin mainiosti: kaikki toisto siirrettiin `setUp`-metodiin ja testien toiminnallisuus pysyi samana. Tämä paransi koodin luettavuutta merkittävästi. Agentin muutosten jälkeen muokkasin koodia siten, että testit, jotka tutkivat eri tuotteiden lisäämistä ostoskoriin, eivät tarvitse omaa funktiota, vaan voivat myös käyttää `setUp`-metodin toiminnallisuutta. Tämä ei kuitenkaan ollut virhe agentin toiminnassa, sillä pyysin erityisesti, ettei se muuttaisi koodin toiminnallisuutta yhtään.
 
-muutos
+muutos 2
